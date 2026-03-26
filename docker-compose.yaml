@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+  backend:
+    restart: always
+    container_name: backend
+    image: backend
+    build:
+      context: backend
+      dockerfile: ./Dockerfile
+    networks:
+      - product_network
+  frontend:
+    depends_on:
+      backend:
+        condition: service_started
+    restart: always
+    container_name: frontend
+    image: frontend
+    build:
+      context: frontend
+      dockerfile: ./Dockerfile
+    networks:
+      - product_network
+    ports:
+      - 80:80
+volumes:
+  backup:
+
+networks:
+  product_network:
