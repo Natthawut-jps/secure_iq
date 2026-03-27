@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input"
 import { redirect } from "next/navigation"
 
 export async function createUser(formData: FormData) {
+  'use server';
     if(!formData.get('name') || !formData.get('email') || !formData.get('password') || !formData.get('confirm-password')) {
         throw new Error('All fields are required');
     }
