@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-// เปลี่ยนแค่ชื่อ function จาก middleware → proxy
 export default function proxy(request: NextRequest) {
   const token = request.cookies.get('_ssid')?.value
   const { pathname } = request.nextUrl

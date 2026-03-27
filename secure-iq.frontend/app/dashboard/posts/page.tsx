@@ -34,28 +34,6 @@ import {
 } from "@/components/ui/alert-dialog"
 import { getToken } from "@/lib/token";
 import { useRouter } from "next/navigation";
-// ── Mock data (12 posts = 3 pages × 4 per page) ──
-const ALL_POSTS = [
-    { id: 1, title: "หลักการ Typography ที่ดีสำหรับเว็บไซต์", excerpt: "การเลือกฟอนต์ที่เหมาะสมและการจัดวางตัวอักษรส่งผลต่อประสบการณ์ผู้ใช้", tag: "Design", views: "1.2k", comments: 24, date: "20 มี.ค. 2026" },
-    { id: 2, title: "เริ่มต้นกับ React Hooks ใน 2026", excerpt: "useState, useEffect, useCallback — ทำความเข้าใจ hooks พื้นฐานที่ทุกคนควรรู้", tag: "Tech", views: "3.5k", comments: 58, date: "15 มี.ค. 2026" },
-    { id: 3, title: "สร้าง Personal Brand บนโลกออนไลน์", excerpt: "แนวทางการสร้างตัวตนและความน่าเชื่อถือในยุคดิจิทัล", tag: "Business", views: "2.1k", comments: 41, date: "10 มี.ค. 2026" },
-    { id: 4, title: "Deep Work: ศิลปะแห่งการโฟกัส", excerpt: "เทคนิคที่จะช่วยให้คุณทำงานได้ลึกขึ้น เร็วขึ้น โดยไม่ต้องทำงานนานขึ้น", tag: "Lifestyle", views: "4.8k", comments: 92, date: "5 มี.ค. 2026" },
-    { id: 5, title: "CSS Grid vs Flexbox เลือกอะไรดี?", excerpt: "เปรียบเทียบข้อดีข้อเสียของเลย์เอาท์สองรูปแบบ พร้อมตัวอย่างการใช้งานจริง", tag: "Tech", views: "2.9k", comments: 37, date: "1 มี.ค. 2026" },
-    { id: 6, title: "Color Theory สำหรับนักพัฒนา", excerpt: "ไม่ต้องเป็นนักออกแบบก็เข้าใจทฤษฎีสีได้ เพื่อสร้าง UI ที่สวยและใช้งานได้จริง", tag: "Design", views: "1.7k", comments: 29, date: "24 ก.พ. 2026" },
-    { id: 7, title: "Next.js App Router คืออะไร?", excerpt: "ทำความรู้จัก App Router ใน Next.js 14 และความแตกต่างจาก Pages Router", tag: "Tech", views: "5.1k", comments: 74, date: "18 ก.พ. 2026" },
-    { id: 8, title: "Micro-interactions ที่ทำให้ UX ดีขึ้น", excerpt: "รายละเอียดเล็กๆ น้อยๆ ที่สร้างความประทับใจให้กับผู้ใช้งานได้อย่างมาก", tag: "Design", views: "2.3k", comments: 45, date: "12 ก.พ. 2026" },
-    { id: 9, title: "สร้าง Side Income จากทักษะ Coding", excerpt: "แนวทางและแพลตฟอร์มที่นักพัฒนาสามารถหารายได้เสริมได้จริงในปี 2026", tag: "Business", views: "6.2k", comments: 103, date: "5 ก.พ. 2026" },
-    { id: 10, title: "Tailwind CSS Tips ที่คุณอาจยังไม่รู้", excerpt: "เทคนิคและ utility classes ที่ซ่อนอยู่ใน Tailwind ที่ช่วยประหยัดเวลาได้มาก", tag: "Tech", views: "3.8k", comments: 61, date: "28 ม.ค. 2026" },
-    { id: 11, title: "Notion Setup สำหรับ Content Creator", excerpt: "ระบบ workflow และ template ที่ช่วยให้การสร้าง content เป็นเรื่องง่ายขึ้น", tag: "Lifestyle", views: "4.0k", comments: 88, date: "20 ม.ค. 2026" },
-    { id: 12, title: "TypeScript Generics อธิบายแบบเข้าใจง่าย", excerpt: "เจาะลึก Generics ใน TypeScript ผ่านตัวอย่างที่ใช้งานได้จริงในโปรเจกต์", tag: "Tech", views: "2.6k", comments: 50, date: "14 ม.ค. 2026" },
-];
-
-const TAG_VARIANT: Record<string, "default" | "secondary" | "outline" | "destructive"> = {
-    Design: "secondary",
-    Tech: "default",
-    Business: "outline",
-    Lifestyle: "secondary",
-};
 
 const POSTS_PER_PAGE = 4;
 
@@ -181,7 +159,7 @@ export default function PostsPage() {
                     >
                         <CardHeader className="pb-2">
                             <Badge
-                                variant={TAG_VARIANT[post.tag] ?? "secondary"}
+                                variant="secondary"
                                 className="w-fit text-xs mb-1"
                             >
                                 {post.tag}
