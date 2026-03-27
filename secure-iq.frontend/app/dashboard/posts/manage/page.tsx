@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/input-group"
 import { useEffect, useState } from "react"
 import { redirect, useSearchParams } from "next/navigation"
-import { getToken } from "@/lib/token"
+import { fetchWithAuth } from "@/lib/fetchAuth"
 
 export default function NewForm() {
   const searchParams = useSearchParams()
@@ -39,10 +39,8 @@ export default function NewForm() {
   useEffect(() => {
     if (!postId) return
       ; (async () => {
-        const token = await getToken()
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts/${postId}`, {
+        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts/${postId}`, {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         })
@@ -52,18 +50,15 @@ export default function NewForm() {
   }, [postId])
 
   async function updatePost(formData: FormData) {
-    const token = await getToken()
-
     if (!postId) return
     formData.append("id", postId)
 
     const data = Object.fromEntries(formData)
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts`, {
+    const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
     })
     if (response.ok) {

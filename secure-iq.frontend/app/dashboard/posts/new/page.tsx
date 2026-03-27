@@ -24,18 +24,16 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from "@/components/ui/input-group"
-import { getToken } from "@/lib/token"
+import { fetchWithAuth } from "@/lib/fetchAuth"
 
 export async function createPost(formData: FormData) {
-  const token = await getToken()
   const data = Object.fromEntries(formData)
   try {
-  await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts`, {
+  await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
     },
   })
  
