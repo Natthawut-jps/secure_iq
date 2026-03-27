@@ -404,6 +404,7 @@ export type ResetPasswordTokenCreateOrConnectWithoutUserInput = {
 
 export type ResetPasswordTokenCreateManyUserInputEnvelope = {
   data: Prisma.ResetPasswordTokenCreateManyUserInput | Prisma.ResetPasswordTokenCreateManyUserInput[]
+  skipDuplicates?: boolean
 }
 
 export type ResetPasswordTokenUpsertWithWhereUniqueWithoutUserInput = {
@@ -1194,6 +1195,7 @@ export type ResetPasswordTokenCreateManyArgs<ExtArgs extends runtime.Types.Exten
    * The data used to create many ResetPasswordTokens.
    */
   data: Prisma.ResetPasswordTokenCreateManyInput | Prisma.ResetPasswordTokenCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1212,6 +1214,7 @@ export type ResetPasswordTokenCreateManyAndReturnArgs<ExtArgs extends runtime.Ty
    * The data used to create many ResetPasswordTokens.
    */
   data: Prisma.ResetPasswordTokenCreateManyInput | Prisma.ResetPasswordTokenCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

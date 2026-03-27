@@ -432,6 +432,7 @@ export type EmailVerificationTokenCreateOrConnectWithoutUserInput = {
 
 export type EmailVerificationTokenCreateManyUserInputEnvelope = {
   data: Prisma.EmailVerificationTokenCreateManyUserInput | Prisma.EmailVerificationTokenCreateManyUserInput[]
+  skipDuplicates?: boolean
 }
 
 export type EmailVerificationTokenUpsertWithWhereUniqueWithoutUserInput = {
@@ -1233,6 +1234,7 @@ export type EmailVerificationTokenCreateManyArgs<ExtArgs extends runtime.Types.E
    * The data used to create many EmailVerificationTokens.
    */
   data: Prisma.EmailVerificationTokenCreateManyInput | Prisma.EmailVerificationTokenCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1251,6 +1253,7 @@ export type EmailVerificationTokenCreateManyAndReturnArgs<ExtArgs extends runtim
    * The data used to create many EmailVerificationTokens.
    */
   data: Prisma.EmailVerificationTokenCreateManyInput | Prisma.EmailVerificationTokenCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

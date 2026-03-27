@@ -30,7 +30,7 @@ export async function createPost(formData: FormData) {
   const token = await getToken()
   const data = Object.fromEntries(formData)
   try {
-  await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts`, {
+  await fetch(`${process.env.API_URL}/api/v1/posts`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
