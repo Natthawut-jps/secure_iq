@@ -24,20 +24,18 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from "@/components/ui/input-group"
-import { fetchWithAuth } from "@/lib/fetchAuth"
 
 export async function createPost(formData: FormData) {
   const data = Object.fromEntries(formData)
   try {
-  await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts`, {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
- 
-  redirect("/dashboard/posts")
+    await fetch(`/api/v1/posts`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    redirect("/dashboard/posts")
   } catch (error) {
     console.error(error)
     redirect("/dashboard/posts")

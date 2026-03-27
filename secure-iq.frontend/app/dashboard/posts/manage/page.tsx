@@ -25,7 +25,6 @@ import {
 } from "@/components/ui/input-group"
 import { useEffect, useState } from "react"
 import { redirect, useSearchParams } from "next/navigation"
-import { fetchWithAuth } from "@/lib/fetchAuth"
 
 export default function NewForm() {
   const searchParams = useSearchParams()
@@ -39,11 +38,7 @@ export default function NewForm() {
   useEffect(() => {
     if (!postId) return
       ; (async () => {
-        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts/${postId}`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
+        const response = await fetch(`/api/posts/${postId}`)
         const data = await response.json()
         setData(data)
       })()
@@ -54,7 +49,7 @@ export default function NewForm() {
     formData.append("id", postId)
 
     const data = Object.fromEntries(formData)
-    const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts`, {
+    const response = await fetch(`/api/posts`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {

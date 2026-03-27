@@ -1,5 +1,16 @@
 "use client";
 
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,22 +29,10 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination";
-import { DeleteIcon, Eye, MessageCircle, Plus, SquarePenIcon } from "lucide-react";
+import { DeleteIcon, Plus, SquarePenIcon } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { fetchWithAuth } from "@/lib/fetchAuth";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const POSTS_PER_PAGE = 4;
 
@@ -51,12 +50,10 @@ export function ConfirmDeletePost({ id }: { id: number }) {
     const router = useRouter();
 
     async function deletePost(id: number) {
-        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts?id=${id}`, {
+        const response = await fetch(`/api/posts?id=${id}`, {
             method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
         });
+
         if (!response.ok) {
             throw new Error("Failed to delete post");
         }
@@ -93,7 +90,7 @@ export default function PostsPage() {
     const totalPages = Math.ceil((posts ? posts.total : 0) / POSTS_PER_PAGE);
 
     const getPageNumbers = (): (number | "ellipsis")[] => {
-        if (!totalPages || totalPages <= 0) return [] 
+        if (!totalPages || totalPages <= 0) return []
         if (totalPages <= 5) {
             return Array.from({ length: totalPages }, (_, i) => i + 1)
         }
@@ -112,13 +109,9 @@ export default function PostsPage() {
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts?page=${currentPage}&limit=${POSTS_PER_PAGE}`, {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-            const data = await response.json();
-            setPosts(data);
+            const response = await fetch(`/api/posts?page=${currentPage}&limit=${POSTS_PER_PAGE}`)
+            const data = await response.json()
+            setPosts(data)
         };
         fetchPosts();
     }, [currentPage, refresh]);
