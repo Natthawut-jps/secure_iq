@@ -20,14 +20,20 @@ export function LogoutButton() {
   const router = useRouter();
  
   const handleLogout = async () => {
-    // ← ใส่ logout logic ที่นี่ เช่น signOut() จาก next-auth
-    router.push("/login");
+    console.log("Logging out...");
+    await fetch("/api/auth/logout", {
+      method: "GET",
+      credentials: "include"
+    });
+    router.replace("/login");
+    router.refresh();
   };
  
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <SidebarMenuButton className="w-full text-muted-foreground hover:text-destructive hover:bg-destructive/10">
+        <SidebarMenuButton 
+         className="w-full text-muted-foreground hover:text-destructive hover:bg-destructive/10">
           <LogOut className="h-4 w-4" />
           <span>Logout</span>
         </SidebarMenuButton>

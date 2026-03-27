@@ -1,9 +1,10 @@
 "use client";
- 
+
+import { FileText, LogOut, Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FileText, Settings, LogOut } from "lucide-react";
- 
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Sidebar,
   SidebarContent,
@@ -16,8 +17,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
- 
+
 const navItems = [
   {
     title: "Posts",
@@ -30,10 +30,17 @@ const navItems = [
     icon: Settings,
   },
 ];
- 
+
 export function AppSidebar() {
   const pathname = usePathname();
- 
+  const handleLogout = async () => {
+    console.log("Logging out...");
+    await fetch("/api/auth/logout", {
+      method: "GET",
+      credentials: "include"
+    });
+    location.href = "/login";
+  };
   return (
     <Sidebar>
       {/* Header */}
@@ -48,7 +55,7 @@ export function AppSidebar() {
           </div>
         </div>
       </SidebarHeader>
- 
+
       {/* Main Navigation */}
       <SidebarContent>
         <SidebarGroup>
@@ -73,7 +80,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
- 
+
       {/* Footer: User + Logout */}
       <SidebarFooter className="border-t">
         <SidebarMenu>
@@ -94,15 +101,12 @@ export function AppSidebar() {
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
- 
+
           {/* Logout */}
           <SidebarMenuItem>
             <SidebarMenuButton
               className="text-destructive hover:text-destructive hover:bg-destructive/10"
-              onClick={() => {
-                // handle logout logic here
-                console.log("Logging out...");
-              }}
+              onClick={handleLogout}
             >
               <LogOut />
               <span>Logout</span>
