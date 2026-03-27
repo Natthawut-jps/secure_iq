@@ -23,7 +23,7 @@ export async function createUser(formData: FormData) {
     if(formData.get('password') !== formData.get('confirm-password')) {
         throw new Error('Passwords do not match');
     }
-  await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/users`, {
+  await fetch(`${process.env.API_URL}/api/v1/users`, {
     method: 'POST',
     body: JSON.stringify({
         name: formData.get('name'),
