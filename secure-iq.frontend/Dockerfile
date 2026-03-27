@@ -1,14 +1,25 @@
-FROM node as build
+FROM node:20-alpine AS build
 WORKDIR /app
-COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
-RUN npm install
+
+COPY package.json package-lock.json* ./
+RUN npm ci --frozen-lockfile
+
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
 COPY . .
 RUN npm run build
 
-FROM nginx:1.27.1
-WORKDIR /usr/share/nginx/html
-COPY --from=build /app/dist .
-COPY default.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+FROM node:20-alpine AS runner
+WORKDIR /app
 
+ENV NODE_ENV=production
+
+COPY --from=build /app/.next/standalone ./
+COPY --from=build /app/.next/static ./.next/static
+COPY --from=build /app/public ./public
+
+EXPOSE 3000
+ENV HOSTNAME="0.0.0.0"
+
+CMD ["node", "server.js"]

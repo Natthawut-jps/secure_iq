@@ -16,7 +16,7 @@ async function bootstrap() {
   });
   app.use(cookieParser());
   await app
-    .listen(process.env.PORT ?? 3001)
+    .listen(process.env.PORT ?? 3001, "0.0.0.0")
     .then(() => {
       console.log(`Server is running on port ${process.env.PORT ?? 3001}`);
     })
