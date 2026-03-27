@@ -42,4 +42,9 @@ export class AuthController {
     });
     return { message: 'Login successful' };
   }
+
+  @Get('me')
+  async me(@Res({ passthrough: true }) res: Response) {
+    return { message: 'User info' };
+  }
 }
