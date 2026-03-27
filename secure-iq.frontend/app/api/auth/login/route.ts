@@ -1,4 +1,4 @@
-// app/api/auth/login/route.ts
+
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {
@@ -14,13 +14,13 @@ export async function POST(req: NextRequest) {
 
   if (!res.ok) return NextResponse.json(data, { status: res.status })
 
-  // set cookie บน frontend domain แทน
+  
   const response = NextResponse.json(data)
   response.cookies.set('_ssid', data.token, {
     httpOnly: true,
     secure: true,
-    sameSite: 'lax',   // ← เปลี่ยนเป็น lax ได้เลย same domain แล้ว
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours in milliseconds
+    sameSite: 'lax',   
+    maxAge: 24 * 60 * 60 * 1000 
   })
 
   return response
