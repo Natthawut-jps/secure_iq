@@ -37,8 +37,8 @@ export class AuthController {
     res.cookie('_ssid', token, {
       httpOnly: true,
       expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
-      sameSite: 'lax',
-      secure: false,
+      sameSite: 'none',
+      secure: true,
     });
     return { message: 'Login successful' };
   }
