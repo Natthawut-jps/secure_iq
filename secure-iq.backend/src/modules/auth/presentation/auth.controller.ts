@@ -6,7 +6,6 @@ import { VerifyEmailCommand } from '../application/verify-email/verify-email.com
 import { VerifyEmailUseCase } from '../application/verify-email/verify-email.use-case';
 import { LoginDto } from './dto/login.dto';
 import { VerifyEmailDto } from './dto/verifyEmail.dto';
-import type { Response } from 'express';
 
 @Controller({
   path: 'auth',
@@ -30,21 +29,15 @@ export class AuthController {
   }
 
   @Post('login')
-  async login(@Body() loginDto: LoginDto, @Res({ passthrough: true }) res: Response) {
+  async login(@Body() loginDto: LoginDto) {
     const token = await this.loginUseCase.execute(
       new LoginCommand(loginDto.email, loginDto.password),
     );
-    res.cookie('_ssid', token, {
-      httpOnly: true,
-      expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
-      sameSite: 'none',
-      secure: true,
-    });
-    return { message: 'Login successful' };
+    return { message: 'Login successful', token };
   }
 
   @Get('me')
-  async me(@Res({ passthrough: true }) res: Response) {
+  async me() {
     return { message: 'User info' };
   }
 }

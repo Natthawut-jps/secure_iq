@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
     httpOnly: true,
     secure: true,
     sameSite: 'lax',   // ← เปลี่ยนเป็น lax ได้เลย same domain แล้ว
-    maxAge: 60 * 60 * 24,
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours in milliseconds
   })
 
   return response
