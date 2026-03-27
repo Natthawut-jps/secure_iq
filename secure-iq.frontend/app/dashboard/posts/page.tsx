@@ -135,11 +135,11 @@ export default function PostsPage() {
                     <h1 className="text-2xl font-bold tracking-tight">Posts</h1>
                     <p className="text-muted-foreground text-sm mt-1">
                         บทความทั้งหมด{" "}
-                        <span className="font-medium text-foreground">{posts ? posts.total : 0}</span>{" "}
+                        <span className="font-medium text-foreground">{posts ? posts.total : 1}</span>{" "}
                         ชิ้น · หน้า{" "}
-                        <span className="font-medium text-foreground">{currentPage}</span>{" "}
+                        <span className="font-medium text-foreground">{currentPage ? currentPage : 0}</span>{" "}
                         จาก{" "}
-                        <span className="font-medium text-foreground">{totalPages}</span>
+                        <span className="font-medium text-foreground">{totalPages ? totalPages : 0}</span>
                     </p>
                 </div>
                 <Link href="/dashboard/posts/new">
