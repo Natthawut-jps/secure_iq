@@ -4,7 +4,7 @@
 FROM node:22-alpine AS build
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
+COPY secure-iq.backend/package.json secure-iq.backend/package-lock.json* ./
 RUN npm ci --frozen-lockfile
 
 COPY . .
@@ -23,7 +23,7 @@ RUN addgroup --system --gid 1001 nodejs \
  && adduser --system --uid 1001 nestjs
 
 # ติดตั้งเฉพาะ production dependencies
-COPY package.json package-lock.json* ./
+COPY secure-iq.backend/package.json secure-iq.backend/package-lock.json* ./
 RUN npm ci --frozen-lockfile --omit=dev
 
 COPY --from=build --chown=nestjs:nodejs /app/dist ./dist
