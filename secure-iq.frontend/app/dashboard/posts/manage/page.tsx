@@ -40,7 +40,7 @@ export default function NewForm() {
     if (!postId) return
       ; (async () => {
         const token = await getToken()
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_UR}/api/v1/posts/${postId}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts/${postId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export default function NewForm() {
     formData.append("id", postId)
 
     const data = Object.fromEntries(formData)
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_UR}/api/v1/posts`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {

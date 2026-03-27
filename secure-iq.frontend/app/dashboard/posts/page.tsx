@@ -52,7 +52,7 @@ export function ConfirmDeletePost({ id }: { id: number }) {
 
     async function deletePost(id: number) {
         const token = await getToken()
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_UR}/api/v1/posts?id=${id}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts?id=${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -115,7 +115,7 @@ export default function PostsPage() {
     useEffect(() => {
         const fetchPosts = async () => {
             const token = await getToken()
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_UR}/api/v1/posts?page=${currentPage}&limit=${POSTS_PER_PAGE}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts?page=${currentPage}&limit=${POSTS_PER_PAGE}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
