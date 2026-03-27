@@ -11,7 +11,7 @@ async function bootstrap() {
     defaultVersion: '1',
   });
   app.enableCors({
-    origin: [process.env.FRONTEND_URL],
+    origin: ['https://elegant-ambition-production-e159.up.railway.app', 'http://localhost:3000'],
     credentials: true,
   });
   app.use(cookieParser());
