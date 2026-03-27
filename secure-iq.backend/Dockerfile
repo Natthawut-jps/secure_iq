@@ -9,7 +9,7 @@ RUN npm ci --frozen-lockfile
 
 COPY secure-iq.backend/ . 
 RUN npm run build
-
+RUN ls -la 
 # ================================
 # Stage 2: Production
 # ================================
