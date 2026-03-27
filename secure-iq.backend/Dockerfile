@@ -7,7 +7,7 @@ WORKDIR /app
 COPY secure-iq.backend/package.json secure-iq.backend/package-lock.json* ./
 RUN npm ci --frozen-lockfile
 
-COPY . .
+COPY secure-iq.backend/ . 
 RUN npm run build
 
 # ================================
