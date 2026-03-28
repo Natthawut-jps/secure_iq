@@ -44,8 +44,8 @@ export class PostController {
     });
   }
 
-  @Get(':id')
-  async getPost(@Param('id') id: string) {
+  @Get('update')
+  async getPost(@Query('id') id: string) {
     return await this.postParamsUseCase.execute({ id });
   }
 

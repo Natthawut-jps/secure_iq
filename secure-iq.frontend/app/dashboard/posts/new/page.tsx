@@ -25,24 +25,22 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group"
 
-export async function createPost(formData: FormData) {
-  const data = Object.fromEntries(formData)
-  try {
-    await fetch(`/api/v1/posts`, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    redirect("/dashboard/posts")
-  } catch (error) {
-    console.error(error)
-    redirect("/dashboard/posts")
-  }
-}
-
 export default function NewPost() {
+  async function handleSubmit(formData: FormData) {
+    const data = Object.fromEntries(formData)
+    try {
+      await fetch(`/api/post`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+    } catch (error) {
+      console.error(error)
+    }
+    redirect("/dashboard/posts", "replace")
+  }
   return (
     <div className="w-full min-h-screen flex justify-center items-start p-4">
       <Card className="w-full max-w-full">
@@ -53,7 +51,7 @@ export default function NewPost() {
           </CardDescription>
         </CardHeader>
         <CardContent className="w-full">
-          <form id="form-rhf-demo" className="w-full" action={createPost}>
+          <form id="form-rhf-demo" className="w-full" action={handleSubmit}>
             <FieldGroup className="w-full">
               <Field>
                 <FieldLabel htmlFor="form-rhf-demo-title">
